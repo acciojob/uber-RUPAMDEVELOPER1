@@ -1,6 +1,7 @@
 package com.driver.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.driver.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.driver.repository.CustomerRepository;
 import com.driver.repository.DriverRepository;
 
 @Service
+
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
@@ -28,30 +30,44 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void adminRegister(Admin admin) {
 		//Save the admin in the database
+		adminRepository1.save(admin);
 	}
 
 	@Override
 	public Admin updatePassword(Integer adminId, String password) {
 		//Update the password of admin with given id
-
+		     Admin admin = adminRepository1.findByAdminId(adminId);
+			 admin.setPassword(password);
+			 adminRepository1.save(admin);
+		      /* Admin admin = new Admin();
+			   admin.setAdminId(adminId);
+			   admin.setPassword(password);
+			   adminRepository1.save(admin);*/
+		return admin;
 	}
 
 	@Override
 	public void deleteAdmin(int adminId){
 		// Delete admin without using deleteById function
-
+		//adminRepository1.deleteByAdminId(adminId);
+		Admin admin = adminRepository1.findById(adminId).get();
+		adminRepository1.delete(admin);
 	}
 
 	@Override
 	public List<Driver> getListOfDrivers() {
 		//Find the list of all drivers
+		List<Driver> driverList = driverRepository1.findAll();
+		return driverList;
 
 	}
 
 	@Override
 	public List<Customer> getListOfCustomers() {
 		//Find the list of all customers
+		return customerRepository1.findAll();
 
 	}
 
 }
+

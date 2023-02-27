@@ -19,5 +19,7 @@ public interface CustomerService {
 	public void cancelTrip(Integer tripId);
 
 	public void completeTrip(Integer tripId);
+
+
 	
 }

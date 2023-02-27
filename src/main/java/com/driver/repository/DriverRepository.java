@@ -9,4 +9,7 @@ import com.driver.model.Driver;
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Integer>{
 
+    List<Integer> findAllByDriverId(int driverId);
+    void deleteByDriverId(int driverId);
+
 }
